@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSC Center Shop</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4; }
+        header { background-color: #007bff; color: white; text-align: center; padding: 20px; }
+        nav { background-color: #333; color: white; padding: 10px; text-align: center; }
+        nav a { color: white; margin: 0 15px; text-decoration: none; }
+        section { padding: 20px; max-width: 800px; margin: auto; }
+        .services { display: flex; flex-wrap: wrap; justify-content: space-around; }
+        .service { background: white; padding: 15px; margin: 10px; border-radius: 5px; box-shadow: 0 0 10px rgba(0,0,0,0.1); width: 200px; text-align: center; }
+        form { background: white; padding: 20px; border-radius: 5px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        input, textarea { width: 100%; padding: 10px; margin: 10px 0; }
+        button { background-color: #007bff; color: white; padding: 10px; border: none; cursor: pointer; }
+        footer { text-align: center; padding: 10px; background-color: #333; color: white; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to Our CSC Center Shop</h1>
+        <p>Your one-stop solution for government services, bill payments, and more!</p>
+    </header>
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+    </nav>
+    <section id="home">
+        <h2>About Us</h2>
+        <p>We provide essential services like Aadhaar updates, PAN cards, bill payments, and more. Visit us or contact for assistance.</p>
+    </section>
+    <section id="services">
+        <h2>Our Services</h2>
+        <div class="services">
+            <div class="service">
+                <h3>Aadhaar Update</h3>
+                <p>Update your Aadhaar details securely.</p>
+                <p>Price: ₹50</p>
+            </div>
+            <div class="service">
+                <h3>Bill Payment</h3>
+                <p>Pay electricity, water, and other bills.</p>
+                <p>Price: ₹10 + bill amount</p>
+            </div>
+            <div class="service">
+                <h3>PAN Card</h3>
+                <p>Apply for new or duplicate PAN cards.</p>
+                <p>Price: ₹100</p>
+            </div>
+            <div class="service">
+                <h3>Other Services</h3>
+                <p>Passport, insurance, and more.</p>
+                <p>Contact for details.</p>
+            </div>
+        </div>
+    </section>
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <p>Address: [Your Shop Address, City, State]</p>
+        <p>Phone: [Your Phone Number]</p>
+        <p>Email: [Your Email]</p>
+        <form id="inquiryForm">
+            <label for="name">Name:</label>
+            <input type="text" id="name" required>
+            <label for="email">Email:</label>
+            <input type="email" id="email" required>
+            <label for="message">Message:</label>
+            <textarea id="message" required></textarea>
+            <button type="submit">Send Inquiry</button>
+        </form>
+    </section>
+    <footer>
+        <p>&copy; 2023 CSC Center Shop. All rights reserved.</p>
+    </footer>
+    <script>
+        document.getElementById('inquiryForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your inquiry! We will get back to you soon.');
+            // Here you can add code to send email or save to database
+        });
+    </script>
+</body>
+</html>
