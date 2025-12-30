@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CSC Centre Shop</title>
+    <title>CSC centre Shop</title>
     <style>
         body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4; }
         header { background-color: #007bff; color: white; text-align: centre; padding: 20px; }
@@ -64,7 +65,7 @@
         <h2>Contact Us</h2>
         <p>Address: Opp. Somna Road, Near Gabhana Tehsil, (U.P)</p>
         <p>Phone: +919719713565</p>
-        <p>Email: anilsharmasms76@gmail.com</p>
+        <p>Email: anilsharmasms76@gmail.com</p>  <!-- Updated -->
         <form id="inquiryForm">
             <label for="name">Name:</label>
             <input type="text" id="name" required>
@@ -118,14 +119,14 @@
             // Send to admin first
             emailjs.send("service_72cpkgi", "template_p8smz67", templateParams)
                 .then(function() {
-                    // Send auto-reply to user
+                    // Send auto-reply to user (if new template created)
                     const userParams = {
                         to_email: email,
                         from_name: name,
                         from_email: email,
                         message: message
                     };
-                    return emailjs.send("service_72cpkgi", "template_tss0l1n", userParams);
+                    return emailjs.send("service_72cpkgi", "template_tss0l1n", userParams);  // Replace with your new template ID
                 })
                 .then(function() {
                     alert('Inquiry submitted! Email sent successfully.');
