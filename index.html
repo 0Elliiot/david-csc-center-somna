@@ -16,6 +16,8 @@
         input, textarea { width: 100%; padding: 10px; margin: 10px 0; }
         button { background-color: #007bff; color: white; padding: 10px; border: none; cursor: pointer; }
         footer { text-align: center; padding: 10px; background-color: #333; color: white; }
+        #inquiries { margin-top: 20px; }
+        .inquiry { background: #e9ecef; padding: 10px; margin: 5px 0; border-radius: 5px; }
     </style>
 </head>
 <body>
@@ -27,6 +29,7 @@
         <a href="#home">Home</a>
         <a href="#services">Services</a>
         <a href="#contact">Contact</a>
+        <a href="#inquiries">View Inquiries</a>  <!-- Added back -->
     </nav>
     <section id="home">
         <h2>About Us</h2>
@@ -72,61 +75,63 @@
             <button type="submit">Send Inquiry</button>
         </form>
     </section>
+    <section id="inquiries">  <!-- Added back -->
+        <h2>Submitted Inquiries</h2>
+        <div id="inquiryList"></div>
+    </section>
     <footer>
         <p>&copy; 2016 CSC Center Shop. All rights reserved.</p>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/emailjs.min.js"></script>
-<script>
-    // EmailJS init (तुम्हारी public key डालो)
-    emailjs.init("NwoK6YXyku3aP_dG8");  // Replace with your actual public key
+    <script>
+        // EmailJS init
+        emailjs.init("NwoK6YXyku3aP_dG8");
 
-    // Load inquiries from localStorage (same as before)
-    function loadInquiries() {
-        const inquiries = JSON.parse(localStorage.getItem('inquiries')) || [];
-        const list = document.getElementById('inquiryList');
-        list.innerHTML = '';
-        inquiries.forEach(inq => {
-            const div = document.createElement('div');
-            div.className = 'inquiry';
-            div.innerHTML = `<strong>${inq.name}</strong> (${inq.email}): ${inq.message}`;
-            list.appendChild(div);
-        });
-    }
-
-    // Handle form submit
-    document.getElementById('inquiryForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        const name = document.getElementById('name').value;
-        const email = document.getElementById('email').value;
-        const message = document.getElementById('message').value;
-        
-        // EmailJS parameters
-        const templateParams = {
-            from_name: name,
-            from_email: email,
-            message: message
-        };
-        
-        // Send email
-        emailjs.send("service_72cpkgi", "template_p8smz67", templateParams)  // Replace with your service and template IDs
-            .then(function(response) {
-                alert('Inquiry submitted! Email sent successfully.');
-                // Also save locally
-                const inquiries = JSON.parse(localStorage.getItem('inquiries')) || [];
-                inquiries.push({ name, email, message });
-                localStorage.setItem('inquiries', JSON.stringify(inquiries));
-                loadInquiries();
-                document.getElementById('inquiryForm').reset();
-            }, function(error) {
-                alert('Failed to send email. Please try again.');
-                console.log('EmailJS error:', error);
+        // Load inquiries from localStorage
+        function loadInquiries() {
+            const inquiries = JSON.parse(localStorage.getItem('inquiries')) || [];
+            const list = document.getElementById('inquiryList');
+            list.innerHTML = '';
+            inquiries.forEach(inq => {
+                const div = document.createElement('div');
+                div.className = 'inquiry';
+                div.innerHTML = `<strong>${inq.name}</strong> (${inq.email}): ${inq.message}`;
+                list.appendChild(div);
             });
-    });
+        }
 
-    // Load inquiries on page load
-    window.onload = loadInquiries;
-</script>
+        // Handle form submit
+        document.getElementById('inquiryForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+            
+            // EmailJS parameters
+            const templateParams = {
+                from_name: name,
+                from_email: email,
+                message: message
+            };
+            
+            // Send email
+            emailjs.send("service_72cpkgi", "template_p8smz67", templateParams)
+                .then(function(response) {
+                    alert('Inquiry submitted! Email sent successfully.');
+                    // Also save locally
+                    const inquiries = JSON.parse(localStorage.getItem('inquiries')) || [];
+                    inquiries.push({ name, email, message });
+                    localStorage.setItem('inquiries', JSON.stringify(inquiries));
+                    loadInquiries();
+                    document.getElementById('inquiryForm').reset();
+                }, function(error) {
+                    alert('Failed to send email. Please try again.');
+                    console.log('EmailJS error:', error);
+                });
+        });
+
+        // Load inquiries on page load
+        window.onload = loadInquiries;
+    </script>
 </body>
 </html>
-
-
