@@ -317,7 +317,7 @@ document.getElementById("yr").innerText = new Date().getFullYear();
 
 function toggleChat(){
     const box = document.getElementById("chatBox");
-    box.style.display = (box.style.display === "block") ? "none" : "block";
+    box.style.display = (box.style.display === "block") ? "none": "block";
 }
 
 function sendWA(){
@@ -330,48 +330,58 @@ function sendWA(){
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
 <script>
-emailjs.init({
-    publicKey: "2TPSutQQcUATGuWVM"
-});
+// Correct Way to Initialize for SDK v3
+(function() {
+    emailjs.init("2TPSutQQcUATGuWVM"); 
+})();
 
-function loadInquiries(){
+function loadInquiries() {
     const data = JSON.parse(localStorage.getItem("inquiries")) || [];
     const box = document.getElementById("inquiryList");
     box.innerHTML = "";
 
-    data.forEach(i=>{
-        const d=document.createElement("div");
-        d.className="inquiry";
-        d.innerHTML=`<b>${i.name}</b> (${i.email}) : ${i.message}`;
+    data.forEach(i => {
+        const d = document.createElement("div");
+        d.className = "inquiry";
+        d.innerHTML = `<b>${i.name}</b> (${i.email}) : ${i.message}`;
         box.appendChild(d);
     });
 }
 
-document.getElementById("inquiryForm").addEventListener("submit", e=>{
+document.getElementById("inquiryForm").addEventListener("submit", e => {
     e.preventDefault();
 
-    const name=document.getElementById("name").value;
-    const email=document.getElementById("email").value;
-    const message=document.getElementById("message").value;
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const message = document.getElementById("message").value;
 
-    emailjs.send("service_72cpkgi","template_p8smz67",{
+    // Button ko disable kar rahe hain taaki baar-baar click na ho
+    const btn = e.target.querySelector("button");
+    btn.innerText = "Sending...";
+    btn.disabled = true;
+
+    emailjs.send("service_72cpkgi", "template_p8smz67", {
         from_name: name,
         from_email: email,
         message: message
     })
-    .then(()=>{
+    .then(() => {
         alert("Inquiry Submitted Successfully!");
 
         const list = JSON.parse(localStorage.getItem("inquiries")) || [];
-        list.push({name,email,message});
-        localStorage.setItem("inquiries",JSON.stringify(list));
+        list.push({ name, email, message });
+        localStorage.setItem("inquiries", JSON.stringify(list));
 
         loadInquiries();
         document.getElementById("inquiryForm").reset();
     })
-    .catch(err=>{
-        console.log(err);
-        alert("Email Failed! Check console.");
+    .catch(err => {
+        console.error("FAILED...", err);
+        alert("Email Failed! Error: " + (err.text || "Check Console"));
+    })
+    .finally(() => {
+        btn.innerText = "Send Inquiry";
+        btn.disabled = false;
     });
 });
 
@@ -380,4 +390,5 @@ window.onload = loadInquiries;
 
 </body>
 </html>
+
 
