@@ -2,410 +2,306 @@
 <html lang="en">
 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CSC Centre Shop</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>David CSC Centre | Digital Services</title>
 
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-<style>
+    <style>
+        :root {
+            --primary-color: #007bff;
+            --secondary-color: #00c6ff;
+            --dark-bg: #111111;
+            --light-bg: #f4f7f9;
+            --white: #ffffff;
+            --shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; transition: all 0.3s ease; }
 
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0
-}
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: var(--light-bg);
+            color: #333;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
 
-body{
-    font-family: Arial;
-    background:#eef2f7
-}
+        /* Header & Nav */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            padding: 60px 20px;
+            text-align: center;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 100%);
+        }
 
-/* Header */
-header{
-    background:linear-gradient(45deg,#007bff,#00c6ff);
-    color: white;
-    padding:40px 20px;
-    text-align: center
-}
+        nav {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 15px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
 
-header h1{
-    font-size:30px;
-    margin-bottom:10px
-}
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+        }
 
-/* Navbar */
-nav{
-    background:#111;
-    padding:12px;
-    text-align: center;
-    position: sticky;
-    top:0;
-    z-index:50
-}
+        nav a:hover { color: var(--secondary-color); }
 
-nav a{
-    color: white;
-    margin:0 15px;
-    text-decoration: none;
-    font-weight: bold
-}
+        /* Sections */
+        section { padding: 50px 20px; max-width: 1100px; margin: auto; }
 
-nav a: hover{
-    color:#00c6ff
-}
+        h2 {
+            text-align: center;
+            margin-bottom: 35px;
+            font-size: 28px;
+            color: #222;
+        }
 
-/* Sections */
-section{
-    padding:30px;
-    max-width:1000px;
-    margin: auto
-}
+        h2::after {
+            content: ''; display: block; width: 50px; height: 3px;
+            background: var(--primary-color); margin: 10px auto;
+        }
 
-/* Services */
-.services{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap:20px
-}
+        /* Services Grid */
+        .services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
 
-.service{
-    background: white;
-    padding:20px;
-    border-radius:12px;
-    width:230px;
-    text-align: center;
-    box-shadow:0 4px 10px rgba(0,0,0,.1)
-}
+        .service {
+            background: var(--white);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            border-top: 5px solid var(--primary-color);
+        }
 
-.service: hover{
-    transform:scale(1.05);
-    transition:.3s
-}
+        .service:hover { transform: translateY(-8px); }
 
-/* Form */
-form{
-    background: white;
-    padding:20px;
-    border-radius:12px;
-    box-shadow:0 4px 10px rgba(0,0,0,.1)
-}
+        .service i { font-size: 45px; color: var(--primary-color); margin-bottom: 15px; }
 
-input,textarea{
-    width:100%;
-    padding:10px;
-    margin-top:10px;
-    border-radius:5px;
-    border:1px solid #ccc
-}
+        /* Contact Box */
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            background: var(--white);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+        }
 
-button{
-    background:#007bff;
-    border: none;
-    color: white;
-    padding:10px;
-    border-radius:5px;
-    cursor: pointer
-}
+        @media (max-width: 768px) { .contact-wrapper { grid-template-columns: 1fr; } }
 
-button: hover{
-    background:#0056b3
-}
+        .info-card i { color: var(--primary-color); margin-right: 10px; width: 20px; }
 
-/* Inquiry List */
-.inquiry{
-    background:#e9ecef;
-    padding:10px;
-    border-radius:8px;
-    margin-top:7px
-}
+        .map-container {
+            width: 100%;
+            height: 250px;
+            background: #eee;
+            border-radius: 12px;
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            border: 2px dashed #ccc;
+        }
 
-/* Footer */
-footer{
-    background:#111;
-    color: white;
-    text-align :center;
-    padding:15px;
-    margin-top:30px
-}
+        /* Form Styling */
+        form input, form textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 15px;
+        }
 
-/* Call Button */
-.call-btn{
-    position: fixed;
-    bottom:95px;
-    right:20px;
-    background:#ffb703;
-    color: white;
-    width:55px;
-    height:55px;
-    border-radius:50%;
-    text-align: center;
-    font-size:28px;
-    box-shadow:0 0 10px rgba(0,0,0,.3);
-    z-index:999
-}
+        form button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 15px;
+            width: 100%;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 16px;
+        }
 
-.call-btn i{
-    margin-top:12px
-}
+        form button:hover { background: #0056b3; }
 
-/* WhatsApp Floating */
-.whatsapp-btn{
-    position: fixed;
-    bottom:20px;
-    right:20px;
-    background:#25d366;
-    color: white;
-    width:55px;
-    height:55px;
-    border-radius:50%;
-    text-align: center;
-    font-size:28px;
-    box-shadow:0 0 10px rgba(0,0,0,.3);
-    z-index:999
-}
+        /* Floating Buttons */
+        .float-btn {
+            position: fixed; right: 20px; width: 55px; height: 55px;
+            border-radius: 50%; color: white; display: flex;
+            align-items: center; justify-content: center;
+            font-size: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); z-index: 1000;
+        }
+        .call { bottom: 85px; background: #ffb703; }
+        .wa { bottom: 20px; background: #25d366; cursor: pointer; }
 
-.whatsapp-btn i{
-    margin-top:12px
-}
+        .chat-popup {
+            position: fixed; bottom: 85px; right: 20px; width: 280px;
+            background: white; border-radius: 12px; box-shadow: var(--shadow);
+            display: none; z-index: 1001; overflow: hidden;
+        }
 
-/* WhatsApp Popup */
-.chat-box{
-    position: fixed;
-    bottom:90px;
-    right:20px;
-    width:320px;
-    background: white;
-    border-radius:12px;
-    box-shadow:0 0 15px rgba(0,0,0,.2);
-    display: none;
-    z-index:999
-}
-
-.chat-header{
-    background:#25d366;
-    color: white;
-    padding:12px;
-    border-radius:12px 12px 0 0;
-    font-size:18px
-}
-
-.chat-body{
-    padding:10px
-}
-
-.chat-body textarea{
-    width:100%;
-    height:80px;
-    border-radius:8px;
-    padding:8px
-}
-
-.send-btn{
-    background:#25d366;
-    width:100%;
-    padding:10px;
-    border: none;
-    color: white;
-    border-radius:8px;
-    margin-top:5px
-}
-
-</style>
+        footer { background: #111; color: white; text-align: center; padding: 25px; margin-top: 40px; }
+    </style>
 </head>
 
 <body>
 
 <header>
-    <h1>Welcome to David CSC Centre Shop</h1>
-    <p>Your one-stop solution for Government Services, Bill Payments & More</p>
+    <h1>David CSC Centre</h1>
+    <p>Your Reliable Partner for All Government & Digital Services</p>
 </header>
 
 <nav>
     <a href="#home">Home</a>
     <a href="#services">Services</a>
     <a href="#contact">Contact</a>
-    <a href="#inquiries">Inquiries</a>
 </nav>
 
-<section id="home">
-    <h2>About Us</h2>
-    <p>
-        We provide Aadhaar, PAN, Bill Payments, Ration Card, Income/Domicile/Caste Certificates,
-        & Many More Online Services.
-    </p>
-</section>
-
 <section id="services">
-    <h2>Our Services</h2>
-
+    <h2>Our Top Services</h2>
     <div class="services">
-
         <div class="service">
-            <h3>Aadhaar Update</h3>
-            <p>Secure & Fast</p>
-            <p>₹100</p>
+            <i class="fa fa-fingerprint"></i>
+            <h3>Aadhaar Services</h3>
+            <p>Updates & Mobile Linking</p>
+            <strong style="color: #28a745;">₹100</strong>
         </div>
-
         <div class="service">
-            <h3>Bill Payment</h3>
-            <p>Electricity / Recharge / DTH / FASTag</p>
-            <p>₹10 + Bill</p>
-        </div>
-
-        <div class="service">
+            <i class="fa fa-file-invoice"></i>
             <h3>PAN Card</h3>
-            <p>New & Duplicate</p>
-            <p>₹200</p>
+            <p>New Application & Correction</p>
+            <strong style="color: #28a745;">₹200</strong>
         </div>
         <div class="service">
-            <h3>Govt Services for Families</h3>
-            <p>Ration Card, Pension, Income/Domicile/Caste Certificate online </p>
+            <i class="fa fa-lightbulb"></i>
+            <h3>Bill Payments</h3>
+            <p>Electricity, Gas & Water</p>
+            <strong style="color: #28a745;">Charge: ₹10</strong>
         </div>
         <div class="service">
-            <h3>Other Services</h3>
-            <p>Passport • Insurance • Driving License • PM Svanidhi Yojna • Govt Work</p>
+            <i class="fa fa-graduation-cap"></i>
+            <h3>Govt. Forms</h3>
+            <p>Income, Caste & Domicile</p>
+            <strong style="color: #28a745;">Fast Process</strong>
         </div>
-
     </div>
 </section>
 
 <section id="contact">
-    <h2>Contact Us</h2>
+    <h2>Contact & Location</h2>
+    <div class="contact-wrapper">
+        <div class="info-card">
+            <h3>Office Details</h3>
+            <br>
+            <p><i class="fa fa-map-marker-alt"></i> Opp. Somna Road, Gabhana, (U.P)</p>
+            <p><i class="fa fa-phone"></i> <a href="tel:+919719713565" style="text-decoration:none; color:inherit;">+91 9719713565</a></p>
+            <p><i class="fa fa-envelope"></i> <a href="mailto:pp49090@gmail.com" style="text-decoration:none; color:inherit;">pp49090@gmail.com</a></p>
+            
+            <div class="map-container">
+                <i class="fa fa-map-marked-alt" style="font-size: 40px; color: #ccc;"></i>
+                <p style="font-size: 13px; color: #777; margin-top: 10px;">Shop location on Google Maps</p>
+                <a href="https://www.google.com/maps/search/?api=1&query=28.0267,77.9427" target="_blank" 
+                   style="margin-top: 10px; background: #db4437; color: white; padding: 8px 15px; border-radius: 5px; text-decoration: none; font-size: 14px;">
+                   <i class="fa fa-location-arrow" style="color:white; margin:0;"></i> Open Live Location
+                </a>
+            </div>
+        </div>
 
-    <p>Address: Opp. Somna Road, Near Gabhana Tehsil, (U.P)</p>
-    <p>Phone: <a href="tel:+919719713565">+919719713565</a></p>
-    <p>Email: <a href="mailto:pp49090@gmail.com">pp49090@gmail.com</a></p>
-    
-    <div style="height: 30px;"></div>
-    
-    <form id="inquiryForm">
-        <input id="name" placeholder="Your Name" required>
-        <input id="phone" placeholder="Your Phone No." required>
-        <input id="email" type="email" placeholder="Your Email" required>
-        <textarea id="message" placeholder="Enter message" required></textarea>
-        <button type="submit">Send Inquiry</button>
-    </form>
-</section>
-
-<section id="inquiries">
-    <h2>Submitted Inquiries</h2>
-    <div id="inquiryList"></div>
+        <form id="inquiryForm">
+            <h3>Send us a Message</h3>
+            <br>
+            <input id="name" placeholder="Enter Your Name" required>
+            <input id="phone" placeholder="Phone Number" required>
+            <input id="email" type="email" placeholder="Email Address" required>
+            <textarea id="message" rows="4" placeholder="How can we help you?" required></textarea>
+            <button type="submit" id="submitBtn">Send Inquiry</button>
+        </form>
+    </div>
 </section>
 
 <footer>
-    <p>&copy; <span id="yr"></span> CSC Centre Shop</p>
+    <p>&copy; <span id="yr"></span> David CSC Centre | All Rights Reserved</p>
 </footer>
 
-<!-- Call Button -->
-<a class="call-btn" href="tel:+919719713565">
-    <i class="fa fa-phone"></i>
-</a>
+<a href="tel:+919719713565" class="float-btn call"><i class="fa fa-phone"></i></a>
+<div class="float-btn wa" onclick="toggleChat()"><i class="fab fa-whatsapp"></i></div>
 
-<!-- WhatsApp Button -->
-<div class="whatsapp-btn" onclick="toggleChat()">
-    <i class="fab fa-whatsapp"></i>
-</div>
-
-<!-- WhatsApp Popup -->
-<div class="chat-box" id="chatBox">
-    <div class="chat-header">Chat on WhatsApp</div>
-    <div class="chat-body">
-        <textarea id="waMsg" placeholder="Type your message"></textarea>
-        <button class="send-btn" onclick="sendWA()">Send</button>
+<div class="chat-popup" id="chatBox">
+    <div style="background:#25d366; color:white; padding:15px; font-weight:bold;">WhatsApp Support</div>
+    <div style="padding:15px;">
+        <textarea id="waMsg" placeholder="Type your message..." style="width:100%; padding:8px; border-radius:5px; border:1px solid #ddd;"></textarea>
+        <button onclick="sendWA()" style="background:#25d366; color:white; border:none; width:100%; padding:10px; margin-top:10px; border-radius:5px; cursor:pointer;">Send to WhatsApp</button>
     </div>
 </div>
 
-<script>
-document.getElementById("yr").innerText = new Date().getFullYear();
-
-function toggleChat(){
-    const box = document.getElementById("chatBox");
-    box.style.display = (box.style.display === "block") ? "none": "block";
-}
-
-function sendWA(){
-    const msg = document.getElementById("waMsg").value;
-    window.open("https://wa.me/919719713565?text="+encodeURIComponent(msg));
-}
-</script>
-
-<!-- EmailJS -->
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-
 <script>
-// 1. Sabse pehle initialize karein
-(function() {
-    emailjs.init("2TPSutQQcUATGuWVM"); 
-})();
+    document.getElementById("yr").innerText = new Date().getFullYear();
 
-// 2. loadInquiries function ko define karein (taki "is not defined" error na aaye)
-function loadInquiries() {
-    const data = JSON.parse(localStorage.getItem("inquiries")) || [];
-    const box = document.getElementById("inquiryList");
-    if (!box) return; // Agar HTML mein div nahi mila to error na de
-    
-    box.innerHTML = "";
-    data.forEach(i => {
-        const d = document.createElement("div");
-        d.className = "inquiry";
-        d.innerHTML = `<b>${i.name}</b> (${i.email}) : ${i.message}`;
-        box.appendChild(d);
+    (function() { emailjs.init("2TPSutQQcUATGuWVM"); })();
+
+    function toggleChat() {
+        const box = document.getElementById("chatBox");
+        box.style.display = (box.style.display === "block") ? "none" : "block";
+    }
+
+    function sendWA() {
+        const msg = document.getElementById("waMsg").value;
+        window.open("https://wa.me/919719713565?text=" + encodeURIComponent(msg));
+    }
+
+    document.getElementById("inquiryForm").addEventListener("submit", function(e) {
+        e.preventDefault();
+        const btn = document.getElementById("submitBtn");
+        btn.innerText = "Sending...";
+        btn.disabled = true;
+
+        const params = {
+            from_name: document.getElementById("name").value,
+            from_email: document.getElementById("email").value,
+            phone_no: document.getElementById("phone").value,
+            message: document.getElementById("message").value,
+            reply_to: document.getElementById("email").value
+        };
+
+        // Dono templates par email bhej raha hai
+        Promise.all([
+            emailjs.send("service_72cpkgi", "template_fef5h8p", params),
+            emailjs.send("service_72cpkgi", "template_p8smz67", params)
+        ])
+        .then(() => {
+            alert("Success! Humne aapki inquiry receive kar li hai.");
+            document.getElementById("inquiryForm").reset();
+        })
+        .catch((err) => {
+            alert("Something went wrong. Please try again.");
+            console.log(err);
+        })
+        .finally(() => {
+            btn.innerText = "Send Inquiry";
+            btn.disabled = false;
+        });
     });
-}
-
-// 3. Form Submit hone par dono emails bhejne ka logic
-document.getElementById("inquiryForm").addEventListener("submit", e => {
-    e.preventDefault();
-
-    const name = document.getElementById("name").value;
-    const email = document.getElementById("email").value;
-    const message = document.getElementById("message").value;
-    const btn = e.target.querySelector("button");
-    btn.innerText = "Sending...";
-    btn.disabled = true;
-    const serviceID = "service_72cpkgi";
-    const params = {
-        from_name: name,
-        from_email: email,
-        message: message,
-        reply_to: email // Isse aap reply kar paoge customer ko
-    };
-
-    // Ek saath dono emails bhejna
-    const sendToAdmin = emailjs.send(serviceID, "template_fef5h8p", params); // Aapke liye
-    const sendToCustomer = emailjs.send(serviceID, "template_p8smz67", params); // Customer ke liye
-    Promise.all([sendToAdmin, sendToCustomer])
-    .then(() => {
-        alert("Send Your Inquiry is Successful!"); // Inquiry sent and confirmation email sent to customer.");
-
-        // Local storage mein save karna
-        // const list = JSON.parse(localStorage.getItem("inquiries")) || [];
-        // list.push({ name, email, message });
-        // localStorage.setItem("inquiries", JSON.stringify(list));
-
-        loadInquiries(); // Ab ye error nahi dega kyunki upar defined hai
-        document.getElementById("inquiryForm").reset();
-    })
-    .catch(err => {
-        console.error("EmailJS Error:", err);
-        alert("Failed to send email. Check console for details.");
-    })
-    .finally(() => {
-        btn.innerText = "Send Inquiry";
-        btn.disabled = false;
-    });
-});
-// 4. Page load hote hi inquiries load karein
-window.onload = loadInquiries;
 </script>
+
 </body>
 </html>
-
-
-
-
-
-
