@@ -330,11 +330,10 @@ function sendWA(){
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
 <script>
-// Correct Way to Initialize for SDK v3
+// Initialization
 (function() {
     emailjs.init("2TPSutQQcUATGuWVM"); 
 })();
-
 function loadInquiries() {
     const data = JSON.parse(localStorage.getItem("inquiries")) || [];
     const box = document.getElementById("inquiryList");
@@ -355,19 +354,29 @@ document.getElementById("inquiryForm").addEventListener("submit", e => {
     const email = document.getElementById("email").value;
     const message = document.getElementById("message").value;
 
-    // Button ko disable kar rahe hain taaki baar-baar click na ho
     const btn = e.target.querySelector("button");
     btn.innerText = "Sending...";
     btn.disabled = true;
 
-    emailjs.send("service_72cpkgi", "template_fef5h8p", {
+    const serviceID = "service_72cpkgi";
+    const params = {
         from_name: name,
         from_email: email,
         message: message
-    })
-    .then(() => {
-        alert("Inquiry Submitted Successfully!");
+    };
 
+    // 1. Pehla Email: Jo AAPKO milega (Contact Us Template)
+    const sendToAdmin = emailjs.send(serviceID, "template_fef5h8p", params);
+
+    // 2. Dusra Email: Jo CUSTOMER ko jayega (Auto Reply Template)
+    const sendToCustomer = emailjs.send(serviceID, "template_p8smz67", params);
+
+    // Dono emails bhejne ke baad ka action
+    Promise.all([sendToAdmin, sendToCustomer])
+    .then(() => {
+        alert("Inquiry Sent & Auto-Reply Sent to Customer!");
+
+        // Local storage mein save karna
         const list = JSON.parse(localStorage.getItem("inquiries")) || [];
         list.push({ name, email, message });
         localStorage.setItem("inquiries", JSON.stringify(list));
@@ -377,7 +386,7 @@ document.getElementById("inquiryForm").addEventListener("submit", e => {
     })
     .catch(err => {
         console.error("FAILED...", err);
-        alert("Email Failed! Error: " + (err.text || "Check Console"));
+        alert("Email sending failed. Please check console.");
     })
     .finally(() => {
         btn.innerText = "Send Inquiry";
@@ -387,9 +396,9 @@ document.getElementById("inquiryForm").addEventListener("submit", e => {
 
 window.onload = loadInquiries;
 </script>
-
 </body>
 </html>
+
 
 
 
