@@ -330,57 +330,71 @@ function sendWA(){
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
 <script>
+// 1. Sabse pehle initialize karein
 (function() {
     emailjs.init("2TPSutQQcUATGuWVM"); 
 })();
+
+// 2. loadInquiries function ko define karein (taki "is not defined" error na aaye)
+function loadInquiries() {
+    const data = JSON.parse(localStorage.getItem("inquiries")) || [];
+    const box = document.getElementById("inquiryList");
+    if (!box) return; // Agar HTML mein div nahi mila to error na de
+    
+    box.innerHTML = "";
+    data.forEach(i => {
+        const d = document.createElement("div");
+        d.className = "inquiry";
+        d.innerHTML = `<b>${i.name}</b> (${i.email}) : ${i.message}`;
+        box.appendChild(d);
+    });
+}
+
+// 3. Form Submit hone par dono emails bhejne ka logic
 document.getElementById("inquiryForm").addEventListener("submit", e => {
     e.preventDefault();
 
     const name = document.getElementById("name").value;
     const email = document.getElementById("email").value;
     const message = document.getElementById("message").value;
-
     const btn = e.target.querySelector("button");
     btn.innerText = "Sending...";
     btn.disabled = true;
-
     const serviceID = "service_72cpkgi";
-
-    // Data jo templates mein jayega
     const params = {
         from_name: name,
         from_email: email,
         message: message,
-        reply_to: email, // Customer ki email id
-        current_year: new Date().getFullYear()
+        reply_to: email // Isse aap reply kar paoge customer ko
     };
-    // 1. Aapko notification (Admin Email)
-    const sendToAdmin = emailjs.send(serviceID, "template_fef5h8p", params);
 
-    // 2. Customer ko Auto Reply (Isme Dashboard mein ek achha format likh dena)
-    const sendToCustomer = emailjs.send(serviceID, "template_p8smz67", params);
-
+    // Ek saath dono emails bhejna
+    const sendToAdmin = emailjs.send(serviceID, "template_fef5h8p", params); // Aapke liye
+    const sendToCustomer = emailjs.send(serviceID, "template_p8smz67", params); // Customer ke liye
     Promise.all([sendToAdmin, sendToCustomer])
     .then(() => {
-        alert("Success! Humne aapki inquiry receive kar li hai aur aapko ek confirmation email bhej diya hai.");
-        
-        // LocalStorage logic
+        alert("Success! Inquiry sent and confirmation email sent to customer.");
+
+        // Local storage mein save karna
         const list = JSON.parse(localStorage.getItem("inquiries")) || [];
         list.push({ name, email, message });
         localStorage.setItem("inquiries", JSON.stringify(list));
-        
-        loadInquiries();
+
+        loadInquiries(); // Ab ye error nahi dega kyunki upar defined hai
         document.getElementById("inquiryForm").reset();
     })
     .catch(err => {
-        console.error("Error:", err);
-        alert("Kuch galti hui hai, please try again.");
+        console.error("EmailJS Error:", err);
+        alert("Failed to send email. Check console for details.");
     })
     .finally(() => {
         btn.innerText = "Send Inquiry";
         btn.disabled = false;
     });
 });
+// 4. Page load hote hi inquiries load karein
+window.onload = loadInquiries;
 </script>
 </body>
 </html>
+
