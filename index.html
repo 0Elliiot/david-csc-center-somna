@@ -326,56 +326,48 @@
         }
     </script>
 
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/emailjs.min.js"></script>
+    <!-- Load EmailJS -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
-    <script>
+<script>
+emailjs.init({
+    publicKey: "NwoK6YXyku3aP_dG8"
+});
+</script>
 
-        emailjs.init({publicKey: "NwoK6YXyku3aP_dG8"});
+<!-- Your form handling script -->
+<script>
+document.getElementById("inquiryForm").addEventListener("submit", e => {
+    e.preventDefault();
 
-        function loadInquiries() {
-            const data = JSON.parse(localStorage.getItem("inquiries")) || [];
-            const box = document.getElementById("inquiryList");
-            box.innerHTML = "";
-            data.forEach(i => {
-                const d = document.createElement("div");
-                d.className = "inquiry";
-                d.innerHTML = `<b>${i.name}</b> (${i.email}) : ${i.message}`;
-                box.appendChild(d);
-            });
-        }
+    let name = document.getElementById("name").value;
+    let email = document.getElementById("email").value;
+    let message = document.getElementById("message").value;
 
-        document.getElementById("inquiryForm").addEventListener("submit", e => {
-            e.preventDefault();
+    emailjs.send("service_72cpkgi","template_p8smz67",{
+        from_name: name,
+        from_email: email,
+        message: message
+    })
+    .then(()=>{
+        alert("Inquiry Submitted Successfully!");
 
-            let name = document.getElementById("name").value;
-            let email = document.getElementById("email").value;
-            let message = document.getElementById("message").value;
+        let list = JSON.parse(localStorage.getItem("inquiries")) || [];
+        list.push({name,email,message});
+        localStorage.setItem("inquiries",JSON.stringify(list));
 
-            emailjs
-                .send("service_72cpkgi", "template_p8smz67",
-                    { from_name: name, from_email: email, message })
-                .then(() => {
-
-                    emailjs.send("service_72cpkgi", "template_tss0l1n",
-                        { to_email: email, message });
-
-                    alert("Inquiry Submitted Successfully!");
-
-                    let list = JSON.parse(localStorage.getItem("inquiries")) || [];
-                    list.push({ name, email, message });
-                    localStorage.setItem("inquiries", JSON.stringify(list));
-
-                    loadInquiries();
-                    document.getElementById("inquiryForm").reset();
-                });
-        });
-
-        window.onload = loadInquiries;
-
-    </script>
+        document.getElementById("inquiryForm").reset();
+    })
+    .catch(e=>{
+        console.log(e);
+        alert("Email failed! Check console.");
+    });
+});
+</script>
 
 </body>
 
 </html>
+
 
 
