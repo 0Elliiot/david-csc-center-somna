@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <style>
-        :root {
+        : root {
             --primary-color: #007bff;
             --secondary-color: #00c6ff;
             --dark-bg: #111111;
@@ -18,6 +18,12 @@
             --text-color: #333;
             --card-bg: #ffffff;
             --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+       .price-tag {
+            font-weight: bold;
+            color: #28a745;
+            display: block;
+            margin-top: 10px;
         }
 
         [data-theme="dark"] {
@@ -165,9 +171,8 @@
     <header>
         <div class="status-badge" id="shopStatus">Updating Shop Status...</div>
         <h1>David CSC Centre</h1>
-        <p>Premium Government & Digital Services | Gabhana, U.P.</p>
+        <p>Expert Government & Digital Services at Your Fingertips</p>
     </header>
-
     <nav>
         <div class="nav-links">
             <a href="#home">Home</a>
@@ -186,17 +191,27 @@
             We provide professional digital solutions including Aadhaar updates, PAN Card services, and various government certificate applications. Fast, reliable, and secure.
         </p>
     </section>
-
     <section id="services">
         <h2>Our Services</h2>
         <div class="services">
-            <div class="service"><i class="fa fa-id-card"></i><h3>Aadhaar Update</h3><p>Name, Address & Mobile Updates</p></div>
-            <div class="service"><i class="fa fa-address-card"></i><h3>PAN Card</h3><p>New Application & Correction</p></div>
-            <div class="service"><i class="fa fa-bolt"></i><h3>Bill Payments</h3><p>Electricity & Recharge Services</p></div>
-            <div class="service"><i class="fa fa-file-contract"></i><h3>Certificates</h3><p>Income, Caste & Domicile</p></div>
+            <div class="service"><i class="fa fa-id-card"></i><h3>Aadhaar Update</h3>
+            <p>Name, Address, and Mobile Linking</p>
+            <span class="price-tag">Fee: ₹100</span></div>
+            <div class="service"><i class="fa fa-address-card"></i><h3>PAN Card</h3>
+            <p>New Application & Correction/Duplicate</p>
+            <span class="price-tag">Price: ₹200</span></div>
+            <div class="service"><i class="fa fa-bolt"></i><h3>Bill Payments</h3>
+            <p>Electricity, DTH, Recharge & FASTag</p>
+            <span class="price-tag">Fee: ₹10 + Bill</span></div>
+            <div class="service"><i class="fa fa-file-contract"></i><h3>Certificates</h3>
+            <p>Income, Caste & Domicile</p>
+            <span class="price-tag">Fast Processing</span></div>
+            <div class="service"><i class="fa fa-file-contract"></i><h3>Govt. Forms & Services</h3>
+            <p>Ration Card, Pension & PM Samman Nidhi Yojna</p>
+            <span class="price-tag">Fast Processing</span>
+            </div>
         </div>
     </section>
-
     <section id="payment">
         <h2>Secure Payment</h2>
         <div class="qr-card">
@@ -249,20 +264,20 @@
         const toggleBtn = document.getElementById('themeToggle');
         toggleBtn.addEventListener('click', () => {
             const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-            document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
+            document.documentElement.setAttribute('data-theme', isDark ? 'light': 'dark');
             toggleBtn.innerHTML = isDark ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
         });
 
-        // Shop Status
-        const hour = new Date().getHours();
-        const badge = document.getElementById('shopStatus');
-        if(hour >= 9 && hour < 20) {
-            badge.innerText = "Shop is Open";
-            badge.style.background = "#28a745";
-        } else {
-            badge.innerText = "Shop is Closed";
-            badge.style.background = "#dc3545";
-        }
+        // Shop Opening Status
+        //const hour = new Date().getHours();
+        //const badge = document.getElementById('shopStatus');
+        //if(hour >= 9 && hour < 20) {
+            //badge.innerText = "Shop is Open";
+            //badge.style.background = "#28a745";
+        //} else {
+           // badge.innerText = "Shop is Closed";
+           // badge.style.background = "#dc3545";
+        //}
 
         // Email Form
         document.getElementById("inquiryForm").addEventListener("submit", e => {
@@ -286,3 +301,4 @@
     </script>
 </body>
 </html>
+
